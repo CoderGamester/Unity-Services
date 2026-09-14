@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 **Changed**:
 - Lowered the declared Unity minimum from 6000.3 to 6000.0 and documented 6000.0.x, 6000.3.x, and 6000.5.x as compatibility reference streams.
 
+**Fixed**:
+- The AssetResolver sample now assigns default actions to the Input System UI module it adds at runtime, so its buttons respond to input instead of looking interactive and receiving nothing.
+
 ## [2.1.2] - 2026-08-04
 
 **Changed**:
