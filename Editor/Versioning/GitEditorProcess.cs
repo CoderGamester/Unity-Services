@@ -13,12 +13,12 @@ namespace GameLovers.Services.Versioning.Editor
 	{
 		private const string DefaultPathToGitBinary = "git";
 
-		private readonly Process Process;
+		private readonly Process _process;
 
 		/// <summary>
 		/// <inheritdoc cref="Process.ExitCode"/>
 		/// </summary>
-		public int ExitCode => Process.ExitCode;
+		public int ExitCode => _process.ExitCode;
 
 		public GitEditorProcess(string workingDir, string pathToGitBinary = DefaultPathToGitBinary)
 		{
@@ -31,7 +31,7 @@ namespace GameLovers.Services.Versioning.Editor
 				WorkingDirectory = workingDir
 			};
 
-			Process = new Process { StartInfo = startInfo };
+			_process = new Process { StartInfo = startInfo };
 		}
 
 		/// <summary>
@@ -64,21 +64,21 @@ namespace GameLovers.Services.Versioning.Editor
 		/// </summary>
 		public string GetDiffFromCommit(string commitHash)
 		{
-			return ExecuteCommand($"diff --word-diff=porcelain {commitHash} -- {Process.StartInfo.WorkingDirectory}");
+			return ExecuteCommand($"diff --word-diff=porcelain {commitHash} -- {_process.StartInfo.WorkingDirectory}");
 		}
 
 		/// <inheritdoc/>
 		public void Dispose()
 		{
-			Process?.Dispose();
+			_process?.Dispose();
 		}
 		
 		private string ExecuteCommand(string args)
 		{
-			Process.StartInfo.Arguments = args;
-			Process.Start();
-			var output = Process.StandardOutput.ReadToEnd().Trim();
-			Process.WaitForExit();
+			_process.StartInfo.Arguments = args;
+			_process.Start();
+			var output = _process.StandardOutput.ReadToEnd().Trim();
+			_process.WaitForExit();
 			return output;
 		}
 	}

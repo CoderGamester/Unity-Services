@@ -73,7 +73,7 @@ namespace GameLovers.Services
 	/// <inheritdoc cref="ITimeService"/>
 	public class TimeService : ITimeManipulator
 	{
-		private static readonly DateTime UnixInitialTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+		private static readonly DateTime _unixInitialTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
 		private float _initialUnityTime;
 		private float _extraTime;
@@ -95,7 +95,7 @@ namespace GameLovers.Services
 		/// <inheritdoc />
 		public float UnityScaleTimeNow => Time.time + _extraTime;
 		/// <inheritdoc />
-		public long UnixTimeNow => (long)( DateTimeUtcNow - UnixInitialTime ).TotalMilliseconds;
+		public long UnixTimeNow => (long)( DateTimeUtcNow - _unixInitialTime ).TotalMilliseconds;
 
 		public TimeService()
 		{
@@ -110,7 +110,7 @@ namespace GameLovers.Services
 		/// <inheritdoc />
 		public long UnixTimeFromDateTimeUtc(DateTime time)
 		{
-			return (long)( time.ToUniversalTime() - UnixInitialTime ).TotalMilliseconds;
+			return (long)( time.ToUniversalTime() - _unixInitialTime ).TotalMilliseconds;
 		}
 
 		/// <inheritdoc />
@@ -122,7 +122,7 @@ namespace GameLovers.Services
 		/// <inheritdoc />
 		public DateTime DateTimeUtcFromUnixTime(long time)
 		{
-			return UnixInitialTime.AddMilliseconds(time).ToUniversalTime();
+			return _unixInitialTime.AddMilliseconds(time).ToUniversalTime();
 		}
 
 		/// <inheritdoc />

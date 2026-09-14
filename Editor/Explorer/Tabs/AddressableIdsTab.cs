@@ -18,10 +18,10 @@ namespace GameLovers.Services.Editor.Explorer.Tabs
 	{
 		private const string PendingPlaceholderText = "Click to compute";
 		private const string PendingFoldoutText = "Details (click 'Check for stale Ids' first)";
-		private static readonly Color WarnColor = new Color(0.95f, 0.75f, 0.30f);
-		private static readonly Color ErrorColor = new Color(0.9f, 0.5f, 0.4f);
-		private static readonly Color OkColor = new Color(0.6f, 0.9f, 0.6f);
-		private static readonly Color MutedColor = new Color(0.7f, 0.7f, 0.7f);
+		private static readonly Color _warnColor = new Color(0.95f, 0.75f, 0.30f);
+		private static readonly Color _errorColor = new Color(0.9f, 0.5f, 0.4f);
+		private static readonly Color _okColor = new Color(0.6f, 0.9f, 0.6f);
+		private static readonly Color _mutedColor = new Color(0.7f, 0.7f, 0.7f);
 
 		/// <inheritdoc />
 		public override string DisplayName => "Addressable Ids";
@@ -131,7 +131,7 @@ namespace GameLovers.Services.Editor.Explorer.Tabs
 
 			_lastGenerationLabel = new Label();
 			_lastGenerationLabel.style.fontSize = 10;
-			_lastGenerationLabel.style.color = new StyleColor(MutedColor);
+			_lastGenerationLabel.style.color = new StyleColor(_mutedColor);
 			_lastGenerationLabel.style.marginTop = 2;
 			scroll.Add(_lastGenerationLabel);
 
@@ -152,7 +152,7 @@ namespace GameLovers.Services.Editor.Explorer.Tabs
 
 			_pendingSummaryLabel = new Label(PendingPlaceholderText);
 			_pendingSummaryLabel.AddToClassList("row-label");
-			_pendingSummaryLabel.style.color = new StyleColor(MutedColor);
+			_pendingSummaryLabel.style.color = new StyleColor(_mutedColor);
 			pendingRow.Add(_pendingSummaryLabel);
 			scroll.Add(pendingRow);
 
@@ -197,20 +197,20 @@ namespace GameLovers.Services.Editor.Explorer.Tabs
 			if (!freshness.ScriptExists)
 			{
 				_freshnessBanner.text = "Not generated yet — click 'Generate Addressable Ids'.";
-				_freshnessBanner.style.color = new StyleColor(ErrorColor);
+				_freshnessBanner.style.color = new StyleColor(_errorColor);
 				_freshnessBanner.style.display = DisplayStyle.Flex;
 			}
 			else if (freshness.IsStale)
 			{
 				_freshnessBanner.text = $"Out of date — Addressables modified after the file was generated " +
 				                         $"({freshness.LatestSourceWriteTime:HH:mm:ss} > {freshness.ScriptWriteTime:HH:mm:ss}).";
-				_freshnessBanner.style.color = new StyleColor(WarnColor);
+				_freshnessBanner.style.color = new StyleColor(_warnColor);
 				_freshnessBanner.style.display = DisplayStyle.Flex;
 			}
 			else
 			{
 				_freshnessBanner.text = $"Up to date — script newer than Addressables ({freshness.ScriptWriteTime:HH:mm:ss}).";
-				_freshnessBanner.style.color = new StyleColor(OkColor);
+				_freshnessBanner.style.color = new StyleColor(_okColor);
 				_freshnessBanner.style.display = DisplayStyle.Flex;
 			}
 
@@ -235,7 +235,7 @@ namespace GameLovers.Services.Editor.Explorer.Tabs
 		private void ResetPendingChanges()
 		{
 			_pendingSummaryLabel.text = PendingPlaceholderText;
-			_pendingSummaryLabel.style.color = new StyleColor(MutedColor);
+			_pendingSummaryLabel.style.color = new StyleColor(_mutedColor);
 			_pendingFoldout.text = PendingFoldoutText;
 			_pendingFoldout.value = false;
 			_addedList.Clear();
@@ -269,24 +269,24 @@ namespace GameLovers.Services.Editor.Explorer.Tabs
 			_removedList.Clear();
 			_warningsList.Clear();
 
-			AppendDiffSubsection(_addedList, $"Added addresses ({diff.AddedAddresses.Count})", diff.AddedAddresses, OkColor);
-			AppendDiffSubsection(_addedList, $"Added labels ({diff.AddedLabels.Count})", diff.AddedLabels, OkColor);
+			AppendDiffSubsection(_addedList, $"Added addresses ({diff.AddedAddresses.Count})", diff.AddedAddresses, _okColor);
+			AppendDiffSubsection(_addedList, $"Added labels ({diff.AddedLabels.Count})", diff.AddedLabels, _okColor);
 
-			AppendDiffSubsection(_removedList, $"Removed addresses ({diff.RemovedAddresses.Count})", diff.RemovedAddresses, ErrorColor);
-			AppendDiffSubsection(_removedList, $"Removed labels ({diff.RemovedLabels.Count})", diff.RemovedLabels, ErrorColor);
+			AppendDiffSubsection(_removedList, $"Removed addresses ({diff.RemovedAddresses.Count})", diff.RemovedAddresses, _errorColor);
+			AppendDiffSubsection(_removedList, $"Removed labels ({diff.RemovedLabels.Count})", diff.RemovedLabels, _errorColor);
 
 			AppendDiffSubsection(_warningsList,
 				$"Sanitized-name collisions ({diff.SanitizedNameCollisions.Count})",
-				diff.SanitizedNameCollisions, WarnColor);
+				diff.SanitizedNameCollisions, _warnColor);
 			AppendDiffSubsection(_warningsList,
 				$"Entries with null AssetType ({diff.NullAssetTypeAddresses.Count})",
-				diff.NullAssetTypeAddresses, WarnColor);
+				diff.NullAssetTypeAddresses, _warnColor);
 
 			if (!diff.HasSnapshot)
 			{
 				var lbl = new Label("No snapshot recorded yet — generate once to enable add/remove diffs.");
 				lbl.style.fontSize = 10;
-				lbl.style.color = new StyleColor(MutedColor);
+				lbl.style.color = new StyleColor(_mutedColor);
 				lbl.style.marginTop = 4;
 				_addedList.Add(lbl);
 			}
@@ -338,7 +338,7 @@ namespace GameLovers.Services.Editor.Explorer.Tabs
 
 		private static Color SummaryColor(DiffResult diff)
 		{
-			return TotalDiffCount(diff) == 0 ? OkColor : WarnColor;
+			return TotalDiffCount(diff) == 0 ? _okColor : _warnColor;
 		}
 
 		private static int TotalDiffCount(DiffResult diff)
