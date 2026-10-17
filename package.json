@@ -2,7 +2,7 @@
   "name": "com.gamelovers.services",
   "displayName": "GameLovers Services",
   "author": "Miguel Tomas",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "unity": "6000.0",
   "license": "MIT",
   "description": "Foundation services: lightweight installation, messaging, ticking, coroutines, pooling, persistence, RNG, time, commands, versioning, and Addressables tooling.",
