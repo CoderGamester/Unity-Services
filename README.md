@@ -72,7 +72,7 @@ public sealed class GameBootstrap : MonoBehaviour
 | State | `IDataService`, `ITimeService`, `IRngService`, commands, and version data |
 | Assets | `IAssetLoader`, `ISceneLoader`, and `AssetResolverService` |
 
-Data storage is appropriate for small, non-secret local state. Addressables handles must be released by the owner that acquired them; loading and instantiating have different release paths.
+Data storage is appropriate for small, non-secret local state. `DataService` persists through `PlayerPrefs` by default; pass `FileDataStorage` for atomic file saves, `BrowserLocalDataStorage` for WebGL saves that survive new builds, and an optional key prefix to scope saves per profile. See [Data Service](docs/data-service.md#storage-backends). Addressables handles must be released by the owner that acquired them; loading and instantiating have different release paths.
 
 For Asset Resolver sample code, call `AddConfigs` through `IAssetAdderService` rather than the concrete resolver, and reference GameData directly from any asmdef that uses its public types.
 

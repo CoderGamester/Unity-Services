@@ -25,7 +25,8 @@ This guide adds package-specific rules to the host repository guide. Consumer us
 - Public async-coroutine completion callbacks have replace semantics. Editor tracking uses the separate internal cleanup event and must not overwrite consumer callbacks.
 - `PoolService` permits one pool per entity type. Pool code that touches Unity objects must guard Unity fake-null because consumers may destroy pooled objects externally.
 - `ObjectPool<T>` dispatches lifecycle hooks by casting the entity. `GameObjectPool` and `GameObjectPool<TBehaviour>` discover hooks with `GetComponent`; implement hooks on the object appropriate to the chosen pool type.
-- `DataService` stores reference types by `Type`; persisted keys use `typeof(T).Name`, and absent saved values require a parameterless constructor.
+- `DataService` stores reference types by `Type` and persists them through one `IDataStorage` (`PlayerPrefsDataStorage` by default). Storage keys are `typeof(T).Name`, prefixed `{keyPrefix}.` only when a key prefix is given, so the default keys stay compatible with existing saves. Absent saved values require a parameterless constructor.
+- `BrowserLocalDataStorage` keeps its `[DllImport]` declarations behind `UNITY_WEBGL && !UNITY_EDITOR`; elsewhere its construction throws `PlatformNotSupportedException`. Never make it fall back silently.
 - `AddressablesAssetLoader.UnloadAsset` releases synchronously and does not destroy instantiated GameObjects or force global memory collection.
 - `IAssetAdderService.AddConfigs` is a default interface method and dispatches through an interface-typed reference, not through `AssetResolverService` directly.
 - `AssetConfigsScriptableObject<TId,TAsset>` stores `AssetReference` entries through its base class; `TAsset` describes the resolved asset type. Do not replace the weak-link storage with serialized concrete assets.

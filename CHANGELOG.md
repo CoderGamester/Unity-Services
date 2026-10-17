@@ -6,7 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+**New**:
+- **Data storage backends**: `DataService` now persists through a pluggable `IDataStorage` (`HasKey`, `Read`, `Write`, `Delete` by string key). `new DataService()` keeps using `PlayerPrefs` through the new `PlayerPrefsDataStorage`, so existing saves load unchanged.
+- **File saves**: `FileDataStorage` stores each type as a `{key}.json` file in `Application.persistentDataPath` or a directory you choose. Every write goes to a temporary file that then replaces the previous one, so an interrupted save keeps the last complete value.
+- **WebGL saves**: `BrowserLocalDataStorage` stores data in the browser's `localStorage`, which is keyed by page origin and survives new uploads on hosts that change the build path every upload, unlike `PlayerPrefs` and `persistentDataPath` on WebGL. Writes are synchronous; it throws in the Editor and on other platforms instead of silently storing nothing.
+- **Key prefix**: `new DataService(storage, keyPrefix)` stores each type under `{keyPrefix}.{typeof(T).Name}`, so separate profiles or modes keep separate saves. Without a prefix, keys stay `typeof(T).Name`.
+
 **Changed**:
+- The Services Explorer Data tab checks and deletes saved values through the bound service's storage instead of always using `PlayerPrefs`.
 - Lowered the declared Unity minimum from 6000.3 to 6000.0 and documented 6000.0.x, 6000.3.x, and 6000.5.x as compatibility reference streams.
 
 **Fixed**:
