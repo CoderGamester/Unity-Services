@@ -28,7 +28,7 @@ namespace GameLoversEditor.Services.Tests
 
 		[Test]
 		// ADMIT: PlayerPrefsDataStorage.Read reports a missing key as null, and Write/Delete persist through PlayerPrefs.
-		// RCR: DataStorage.cs PlayerPrefsDataStorage.Read — return GetString without the HasKey guard → RED (expected null,
+		// RCR: PlayerPrefsDataStorage.cs PlayerPrefsDataStorage.Read — return GetString without the HasKey guard → RED (expected null,
 		// was string.Empty). 2026-10-17
 		public void Write_Read_Delete_RoundTrip()
 		{
