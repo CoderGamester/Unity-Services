@@ -1,5 +1,7 @@
 # GameLovers Services — API Reference
 
+> **Unity compatibility:** Minimum Unity version `6000.0`; reference streams are `6000.0.x`, `6000.3.x`, and `6000.5.x`. Services is pipeline-neutral. See the [package compatibility matrix](../README.md#unity-compatibility).
+
 This folder contains the full API reference for each service. For quick-start examples see the [package README](../README.md). For architecture details and contributor guidance see [AGENTS.md](../AGENTS.md).
 
 ## Services

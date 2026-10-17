@@ -36,6 +36,16 @@ namespace GameLoversEditor.Services.Tests
 			}
 		}
 
+		private class MemoryDataStorage : IDataStorage
+		{
+			public readonly Dictionary<string, string> Values = new Dictionary<string, string>();
+
+			public bool HasKey(string key) => Values.ContainsKey(key);
+			public string Read(string key) => Values.TryGetValue(key, out var value) ? value : null;
+			public void Write(string key, string value) => Values[key] = value;
+			public void Delete(string key) => Values.Remove(key);
+		}
+
 		private const string PersistentDataKey = nameof(PersistentData);
 
 		private DataService _dataService;
@@ -189,6 +199,41 @@ namespace GameLoversEditor.Services.Tests
 			Assert.AreEqual(typeof(PersistentData).Name, subclass.LastKey);
 			Assert.AreSame(data, subclass.LastInstance);
 			Assert.AreEqual(typeof(PersistentData), subclass.LastType);
+		}
+
+		[Test]
+		// ADMIT: DataService.SaveData<T> writes through the storage passed to its constructor, under typeof(T).Name when
+		// no key prefix is set.
+		// RCR: DataService.cs Save — write through a new PlayerPrefsDataStorage → RED (injected storage stays empty). Also
+		// reddens KeyPrefix_SharedStorage_IsolatesSaves. 2026-10-17
+		public void SaveData_CustomStorage_WritesThroughInjectedStorage()
+		{
+			var storage = new MemoryDataStorage();
+			var service = new DataService(storage);
+			service.AddOrReplaceData(new PersistentData { Name = "Stored", Value = 7 });
+
+			service.SaveData<PersistentData>();
+
+			CollectionAssert.AreEquivalent(new[] { PersistentDataKey }, storage.Values.Keys);
+			Assert.AreEqual("Stored", new DataService(storage).LoadData<PersistentData>().Name);
+		}
+
+		[Test]
+		// ADMIT: DataService prepends its key prefix to every storage key, so services with different prefixes keep
+		// separate saves in one storage.
+		// RCR: DataService.cs GetStorageKey — ignore the prefix → RED (stored key is "PersistentData"). 2026-10-17
+		public void KeyPrefix_SharedStorage_IsolatesSaves()
+		{
+			var storage = new MemoryDataStorage();
+			var profileA = new DataService(storage, "ProfileA");
+			profileA.AddOrReplaceData(new PersistentData { Name = "A", Value = 1 });
+
+			profileA.SaveAllData();
+
+			CollectionAssert.AreEquivalent(new[] { "ProfileA." + PersistentDataKey }, storage.Values.Keys);
+			Assert.IsNull(new DataService(storage, "ProfileB").LoadData<PersistentData>().Name);
+			Assert.IsNull(new DataService(storage).LoadData<PersistentData>().Name);
+			Assert.AreEqual("A", new DataService(storage, "ProfileA").LoadData<PersistentData>().Name);
 		}
 	}
 }

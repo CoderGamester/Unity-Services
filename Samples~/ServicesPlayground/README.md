@@ -1,5 +1,7 @@
 # Services Playground (Sample)
 
+> **Unity compatibility:** Minimum Unity version `6000.0`; reference streams are `6000.0.x`, `6000.3.x`, and `6000.5.x`. Services is pipeline-neutral. See the [package compatibility matrix](../../README.md#unity-compatibility).
+
 A single-scene, zero-Addressables walk-through that wires every foundation service via `MainInstaller`. Press Play and 10 of the 13 tabs in the **Services Explorer** light up with realistic state.
 
 > **Sample-only types**: `Bullet`, `PlayerData`, `TestMessage`, `PlayerLevelledUpMessage`, `GameLogic`, `LevelUpCommand`, `ServicesBootstrap`, `ServicesPlaygroundUI`. These are NOT part of the `com.gamelovers.services` public API — they live in `GameLovers.Services.Samples.ServicesPlayground` to make that explicit.

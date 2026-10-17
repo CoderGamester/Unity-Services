@@ -128,7 +128,9 @@ namespace GameLovers.Services
 		private readonly IDictionary<Type, IDictionary<Type, IDictionary>> _assetMap =
 			new Dictionary<Type, IDictionary<Type, IDictionary>>();
 
-		/// <summary>Registered assets, keyed by asset type then id type. Editor introspection only — see AGENTS.md §4.</summary>
+		/// <summary>
+		/// Registered assets, keyed by asset type then id type. Editor introspection only — see AGENTS.md §4.
+		/// </summary>
 		internal IReadOnlyDictionary<Type, IDictionary<Type, IDictionary>> AssetMap =>
 			(IReadOnlyDictionary<Type, IDictionary<Type, IDictionary>>)_assetMap;
 

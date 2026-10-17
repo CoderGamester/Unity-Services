@@ -16,10 +16,10 @@ Remove `com.gamelovers.assetsimporter` and update `com.gamelovers.services` in y
 
 ```diff
 - "com.gamelovers.assetsimporter": "https://github.com/CoderGamester/Unity-AssetsImporter.git",
-  "com.gamelovers.services": "https://github.com/CoderGamester/Services.git",
+  "com.gamelovers.services": "https://github.com/CoderGamester/Unity-Services.git#2.1.2",
 ```
 
-`com.unity.addressables` and `com.cysharp.unitask` are now resolved automatically as transitive dependencies of `com.gamelovers.services`.
+`com.unity.addressables` resolves from the Unity registry. When installing from Git, add UniTask directly to the consuming project's manifest; Unity does not resolve Git dependencies transitively.
 
 ---
 

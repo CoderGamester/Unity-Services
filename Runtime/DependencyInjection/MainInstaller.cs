@@ -12,7 +12,9 @@ namespace GameLovers.Services
 	{
 		private static readonly Installer _installer = new Installer();
 
-		/// <summary>The single installer this static facade wraps. Editor introspection only — see AGENTS.md §4.</summary>
+		/// <summary>
+		/// The single installer this static facade wraps. Editor introspection only — see AGENTS.md §4.
+		/// </summary>
 		internal static Installer InstallerInstance => _installer;
 
 		/// <inheritdoc cref="IInstaller.Bind{T}"/>

@@ -364,7 +364,9 @@ namespace GameLovers.Services
 			}
 		}
 
-		/// <summary>One tick subscription: its action, cadence and bookkeeping. Editor introspection only — see AGENTS.md §4.</summary>
+		/// <summary>
+		/// One tick subscription: its action, cadence and bookkeeping. Editor introspection only — see AGENTS.md §4.
+		/// </summary>
 		internal struct TickData
 		{
 			public int Id;

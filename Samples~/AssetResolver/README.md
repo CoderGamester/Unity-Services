@@ -1,5 +1,7 @@
 # Asset Resolver (Sample)
 
+> **Unity compatibility:** Minimum Unity version `6000.0`; reference streams are `6000.0.x`, `6000.3.x`, and `6000.5.x`. Services is pipeline-neutral. See the [package compatibility matrix](../../README.md#unity-compatibility).
+
 A focused demo of `AssetResolverService` end-to-end: register a typed-config ScriptableObject, request an asset by id-enum, unload references when done.
 
 > **Sample-only types**: `SpriteId`, `SpriteConfigs`, `AssetResolverExample`. These are NOT part of the `com.gamelovers.services` public API — they live in `GameLovers.Services.Samples.AssetResolver` to make that explicit.

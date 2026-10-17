@@ -1,5 +1,7 @@
 # Services Samples
 
+> **Unity compatibility:** Minimum Unity version `6000.0`; reference streams are `6000.0.x`, `6000.3.x`, and `6000.5.x`. Services is pipeline-neutral. See the [package compatibility matrix](../README.md#unity-compatibility).
+
 This folder contains the importable samples for the `com.gamelovers.services` package. Each sample is self-contained and demonstrates one cohesive slice of the package.
 
 > **For AI assistants and contributors**: every type prefixed `SAMPLE-ONLY` in the source files is **defined inside the sample**, NOT in the services package public API. Do not document them as if they were part of the package surface. The full list is at the bottom of this file.

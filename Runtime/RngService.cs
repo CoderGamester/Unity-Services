@@ -119,10 +119,10 @@ namespace GameLovers.Services
 	/// <inheritdoc />
 	public class RngService : IRngService
 	{
-		private const int _basicSeed = 161803398;
-		private const int _stateLength = 56;
-		private const int _helperInc = 21;
-		private const int _valueIndex = 0;
+		private const int BasicSeed = 161803398;
+		private const int StateLength = 56;
+		private const int HelperInc = 21;
+		private const int ValueIndex = 0;
 
 		private RngData _rngData;
 
@@ -248,15 +248,15 @@ namespace GameLovers.Services
 		/// </exception>
 		public static int[] CopyRngState(int[] state)
 		{
-			if (state == null || state.Length != _stateLength)
+			if (state == null || state.Length != StateLength)
 			{
 				throw new IndexOutOfRangeException($"The Random data created has the wrong state date." +
-												   $"It should have a lenght of {_stateLength.ToString()} but has {state?.Length}");
+												   $"It should have a lenght of {StateLength.ToString()} but has {state?.Length}");
 			}
 
-			var newState = new int[_stateLength];
+			var newState = new int[StateLength];
 
-			Array.Copy(state, newState, _stateLength);
+			Array.Copy(state, newState, StateLength);
 
 			return newState;
 		}
@@ -282,16 +282,16 @@ namespace GameLovers.Services
 		/// </summary>
 		public static int[] GenerateRngState(int seed)
 		{
-			var value = _basicSeed - (seed == int.MinValue ? int.MaxValue : System.Math.Abs(seed));
-			var state = new int[_stateLength];
+			var value = BasicSeed - (seed == int.MinValue ? int.MaxValue : System.Math.Abs(seed));
+			var state = new int[StateLength];
 
-			state[_stateLength - 1] = value;
-			state[_valueIndex] = 0;
+			state[StateLength - 1] = value;
+			state[ValueIndex] = 0;
 
 			//Apparently the range [1..55] is special (Knuth)
-			for (int i = 1, j = 1; i < _stateLength - 1; i++)
+			for (int i = 1, j = 1; i < StateLength - 1; i++)
 			{
-				var index = (_helperInc * i) % (_stateLength - 1);
+				var index = (HelperInc * i) % (StateLength - 1);
 
 				state[index] = j;
 
@@ -307,9 +307,9 @@ namespace GameLovers.Services
 
 			for (var k = 1; k < 5; k++)
 			{
-				for (var i = 1; i < _stateLength; i++)
+				for (var i = 1; i < StateLength; i++)
 				{
-					state[i] -= state[1 + (i + 30) % (_stateLength - 1)];
+					state[i] -= state[1 + (i + 30) % (StateLength - 1)];
 
 					if (state[i] < 0)
 					{
@@ -323,18 +323,18 @@ namespace GameLovers.Services
 
 		private static int NextNumber(int[] rndState)
 		{
-			var index1 = rndState[_valueIndex] + 1;
-			var index2 = index1 + _helperInc + 1;
+			var index1 = rndState[ValueIndex] + 1;
+			var index2 = index1 + HelperInc + 1;
 
-			index1 = index1 < _stateLength ? index1 : 1;
-			index2 = index2 < _stateLength ? index2 : 1;
+			index1 = index1 < StateLength ? index1 : 1;
+			index2 = index2 < StateLength ? index2 : 1;
 
 			var ret = rndState[index1] - rndState[index2];
 
 			ret = ret < 0 ? ret + int.MaxValue : ret;
 
 			rndState[index1] = ret;
-			rndState[_valueIndex] = index1;
+			rndState[ValueIndex] = index1;
 
 			return ret;
 		}

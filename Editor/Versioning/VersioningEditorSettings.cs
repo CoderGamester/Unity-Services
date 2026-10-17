@@ -12,7 +12,9 @@ namespace GameLovers.Services.Versioning.Editor
 	[FilePath("ProjectSettings/VersioningEditorSettings.asset", FilePathAttribute.Location.ProjectFolder)]
 	internal sealed class VersioningEditorSettings : ScriptableSingleton<VersioningEditorSettings>
 	{
-		/// <summary>Folder under which <c>version-data.txt</c> is written. Must contain a <c>Resources</c> segment.</summary>
+		/// <summary>
+		/// Folder under which <c>version-data.txt</c> is written. Must contain a <c>Resources</c> segment.
+		/// </summary>
 		public const string DefaultFolderPath = "Assets/Configs/Resources";
 
 		[SerializeField] private string _resourcesFolderPath = DefaultFolderPath;

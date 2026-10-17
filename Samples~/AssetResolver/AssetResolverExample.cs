@@ -82,7 +82,7 @@ namespace GameLovers.Services.Samples.AssetResolver
 			{
 				DestroyImmediate(legacy);
 			}
-			go.AddComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
+			go.AddComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>().AssignDefaultActions();
 #else
 			if (go.GetComponent<StandaloneInputModule>() == null)
 			{

@@ -90,15 +90,23 @@ namespace GameLovers.Services.AddressableIds.Editor
 		public int LastGenerationIdCount => _lastGenerationIdCount;
 		/// <summary>How many labels the last generation emitted.</summary>
 		public int LastGenerationLabelCount => _lastGenerationLabelCount;
-		/// <summary>Script filename the last generation used; a change from the current setting makes the snapshot stale.</summary>
+		/// <summary>
+		/// Script filename the last generation used; a change from the current setting makes the snapshot stale.
+		/// </summary>
 		public string LastGenerationFilenameUsed => _lastGenerationFilenameUsed ?? string.Empty;
-		/// <summary>Label filter the last generation used; a change from the current setting makes the snapshot stale.</summary>
+		/// <summary>
+		/// Label filter the last generation used; a change from the current setting makes the snapshot stale.
+		/// </summary>
 		public string LastGenerationLabelFilterUsed => _lastGenerationLabelFilterUsed ?? string.Empty;
 
-		/// <summary>Sorted list of addressable addresses that were emitted in the last generation. Empty array when no snapshot.</summary>
+		/// <summary>
+		/// Sorted list of addressable addresses that were emitted in the last generation. Empty array when no snapshot.
+		/// </summary>
 		public IReadOnlyList<string> LastGenerationAddresses => _lastGenerationAddresses ?? Array.Empty<string>();
 
-		/// <summary>Sorted list of addressable labels that were emitted in the last generation. Empty array when no snapshot.</summary>
+		/// <summary>
+		/// Sorted list of addressable labels that were emitted in the last generation. Empty array when no snapshot.
+		/// </summary>
 		public IReadOnlyList<string> LastGenerationLabels => _lastGenerationLabels ?? Array.Empty<string>();
 
 		/// <summary>

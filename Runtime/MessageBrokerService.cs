@@ -66,10 +66,15 @@ namespace GameLovers.Services
 
 		private (bool, IMessage) _isPublishing;
 
-		/// <summary>Subscribers keyed by message type, then by subscriber target. Editor introspection only — see AGENTS.md §4.</summary>
+		/// <summary>
+		/// Subscribers keyed by message type, then by subscriber target. Editor introspection only — see AGENTS.md §4.
+		/// </summary>
 		internal IReadOnlyDictionary<Type, IDictionary<object, Delegate>> Subscriptions =>
 			(IReadOnlyDictionary<Type, IDictionary<object, Delegate>>)_subscriptions;
-		/// <summary>True while a publish is in flight, when mutating the subscriber list would throw. Editor introspection only — see AGENTS.md §4.</summary>
+		/// <summary>
+		/// True while a publish is in flight, when mutating the subscriber list would throw.
+		/// Editor introspection only — see AGENTS.md §4.
+		/// </summary>
 		internal bool IsPublishing => _isPublishing.Item1;
 
 		/// <inheritdoc />
