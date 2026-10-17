@@ -19,6 +19,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 **Fixed**:
 - The AssetResolver sample now assigns default actions to the Input System UI module it adds at runtime, so its buttons respond to input instead of looking interactive and receiving nothing.
 
+**Docs**:
+- The install instructions now list UniTask as an explicit Git dependency, because Unity does not resolve Git dependencies transitively.
+
 ## [2.1.2] - 2026-08-04
 
 **Changed**:

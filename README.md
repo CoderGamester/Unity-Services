@@ -29,7 +29,7 @@ Unity does not resolve Git dependencies transitively. Add the required Git packa
   "dependencies": {
     "com.gamelovers.gamedata": "https://github.com/CoderGamester/Unity-GameData.git#1.0.3",
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask#2.5.10",
-    "com.gamelovers.services": "https://github.com/CoderGamester/Unity-Services.git#2.1.2"
+    "com.gamelovers.services": "https://github.com/CoderGamester/Unity-Services.git#2.2.0"
   }
 }
 ```
